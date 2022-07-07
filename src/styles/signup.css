@@ -1,0 +1,88 @@
+.signup {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.signup-img-wrapper {
+  width: 100%;
+}
+
+.signup-img {
+  width: 100%;
+  height: 99vh;
+  object-fit: cover;
+}
+
+.sign-up-form-wrapper {
+  width: 100%;
+  display: flex;
+  padding: 1rem 2rem;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.sign-form-header {
+  margin: 2rem 0;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.header-title::after {
+  content: '';
+  position: absolute;
+  bottom: -0.8rem;
+  left: 0;
+  width: 60px;
+  height: 7px;
+  background-color: blue;
+  border-radius: 30px;
+}
+
+.header-btn-en {
+  cursor: pointer;
+  border: 0;
+  padding: 0.5rem 0.7rem;
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+
+.header-btn-ar {
+  cursor: pointer;
+  border: 0;
+  padding: 0.5rem 0.7rem;
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+
+.active {
+  background-color: rgb(30, 213, 250);
+}
+
+.form-data {
+  display: flex;
+  align-items: flex-start;
+  text-align: start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.form-control {
+  display: flex;
+  flex-direction: column;
+  height: 100px;
+  width: 48%;
+}
+
+.submit-btn {
+  margin: 0 auto;
+  width: 100%;
+}
+
+.radio-control {
+  width: 100%;
+}
