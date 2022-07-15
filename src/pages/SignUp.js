@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
@@ -10,8 +10,14 @@ import InputTextField from '../components/InputTextField'
 import RadioField from '../components/RadioField'
 import Button from '@mui/material/Button'
 import PhoneField from '../components/PhoneField'
+import { registrationLocalizations } from '../utilities/localizations'
 
 const SignUp = () => {
+  const [currentLanguage, setCurrentLanguage] = useState(
+    registrationLocalizations.getLanguage()
+  )
+  useEffect(() => {}, [currentLanguage])
+
   const {
     control,
     handleSubmit,
@@ -44,6 +50,12 @@ const SignUp = () => {
     { value: 'other', label: 'Other' },
     { value: 'prefer', label: 'Prefer not to say' },
   ]
+  const gendersAr = [
+    { value: 'ذكر', label: 'ذكر' },
+    { value: 'انثى', label: 'انثى' },
+    { value: 'اخرى', label: 'اخرى' },
+    { value: 'يفضل', label: 'يفضل عدم القول' },
+  ]
   return (
     <section className='signup'>
       <div className='signup-img-wrapper'>
@@ -58,27 +70,52 @@ const SignUp = () => {
         <header className='sign-form-header'>
           <h2 className='header-title'>Registration</h2>
           <div>
-            <button className='header-btn-en active'>en</button>
-            <button className='header-btn-ar '>ar</button>
+            <button
+              className={`header-btn-en ${
+                currentLanguage === 'en' && 'active'
+              }`}
+              onClick={() => {
+                registrationLocalizations.setLanguage('en')
+                setCurrentLanguage('en')
+              }}
+            >
+              en
+            </button>
+            <button
+              className={`header-btn-ar ${
+                currentLanguage === 'ar' && 'active'
+              }`}
+              onClick={() => {
+                registrationLocalizations.setLanguage('ar')
+                setCurrentLanguage('ar')
+              }}
+            >
+              ar
+            </button>
           </div>
         </header>
         <form
           className='form-data'
           onSubmit={handleSubmit(data => alert(JSON.stringify(data)))}
+          dir={registrationLocalizations.getLanguage() === 'ar' ? 'rtl' : 'ltr'}
         >
           <div className='form-control'>
-            <label htmlFor='userName'>User name</label>
+            <label htmlFor='userName'>
+              {registrationLocalizations.userName}
+            </label>
 
             <InputTextField
               name='userName'
               inputControl={control}
-              placeholder='please enter your user name'
+              placeholder={registrationLocalizations.userNameHolder}
               errors={errors?.userName}
               helperText={errors?.userName?.message}
             />
           </div>
           <div className='form-control'>
-            <label htmlFor='positions'>Position you are applying for</label>
+            <label htmlFor='positions'>
+              {registrationLocalizations.position}
+            </label>
             <SelectField
               name='positions'
               control={control}
@@ -86,73 +123,86 @@ const SignUp = () => {
             />
           </div>
           <div className='form-control'>
-            <label htmlFor='email'>Email</label>
+            <label htmlFor='email'> {registrationLocalizations.email}</label>
             <InputTextField
               name='email'
               type='email'
               inputControl={control}
-              placeholder='please enter your email'
+              placeholder={registrationLocalizations.emailHolder}
               errors={errors?.email}
               helperText={errors?.email?.message}
             />
           </div>
           <div className='form-control'>
-            <label htmlFor='phone'>Phone Number</label>
+            <label htmlFor='phone'> {registrationLocalizations.phone}</label>
             <PhoneField
               name='phone'
               type='tel'
               inputControl={control}
-              placeholder='please enter your phone'
+              placeholder={registrationLocalizations.phoneHolder}
               errors={errors?.phone}
               helperText={errors?.phone?.message}
+              dir={
+                registrationLocalizations.getLanguage() === 'ar' ? 'rtl' : 'ltr'
+              }
             />
           </div>
           <div className='form-control'>
-            <label htmlFor='country'>Country</label>
+            <label htmlFor='country'>{registrationLocalizations.country}</label>
             <InputTextField
               name='country'
               inputControl={control}
-              placeholder='please enter your country'
+              placeholder={registrationLocalizations.countryHolder}
               errors={errors?.country}
               helperText={errors?.country?.message}
             />
           </div>
           <div className='form-control'>
-            <label htmlFor='city'>city</label>
+            <label htmlFor='city'>{registrationLocalizations.city}</label>
             <InputTextField
               name='city'
               inputControl={control}
-              placeholder='please enter your city'
+              placeholder={registrationLocalizations.cityHolder}
               errors={errors?.city}
               helperText={errors?.city?.message}
             />
           </div>
           <div className='form-control'>
-            <label htmlFor='password'>Password</label>
+            <label htmlFor='password'>
+              {registrationLocalizations.password}
+            </label>
             <InputTextField
               type='password'
               name='password'
               inputControl={control}
-              placeholder='please enter your password'
+              placeholder={registrationLocalizations.passwordHolder}
               errors={errors?.password}
               helperText={errors?.password?.message}
             />
           </div>
           <div className='form-control'>
-            <label htmlFor='confirmPassword'>Confirm Password</label>
+            <label htmlFor='confirmPassword'>
+              {registrationLocalizations.confirmPassword}
+            </label>
             <InputTextField
               name='confirmPassword'
               type='password'
               inputControl={control}
-              placeholder='please confirm your password'
+              placeholder={registrationLocalizations.confirmPasswordHolder}
               errors={errors?.confirmPassword}
               helperText={errors?.confirmPassword?.message}
             />
           </div>
           <div className='form-control radio-control'>
-            <label htmlFor='confirmPassword'>Gender</label>
+            <label htmlFor='confirmPassword'>
+              {registrationLocalizations.gender}
+            </label>
             <div className='radio-holder'>
-              <RadioField name='gender' control={control} genders={genders} />
+              <RadioField
+                name='gender'
+                control={control}
+                genders={currentLanguage === 'en' ? genders : gendersAr}
+              />
             </div>
           </div>
           <Button

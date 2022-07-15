@@ -3,7 +3,7 @@ import { Controller } from 'react-hook-form'
 import ReactPhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 
-const PhoneField = ({ name, inputControl, errors }) => (
+const PhoneField = ({ name, inputControl, errors, placeholder }) => (
   <Controller
     name={name}
     control={inputControl}
@@ -16,6 +16,7 @@ const PhoneField = ({ name, inputControl, errors }) => (
           border: errors?.phone ? '1px solid red' : '',
         }}
         {...field}
+        placeholder={placeholder}
       />
     )}
   />
