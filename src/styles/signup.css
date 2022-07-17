@@ -86,3 +86,15 @@
 .radio-control {
   width: 100%;
 }
+
+.ar-class {
+  padding-right: 3rem;
+  direction: rtl;
+}
+
+.ar-dropdown-class {
+  padding: 0 3px 0 0 !important;
+}
+.ar-dropdown-class .selected-flag .flag .arrow {
+  left: -21px;
+}

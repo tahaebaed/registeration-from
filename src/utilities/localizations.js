@@ -2,6 +2,7 @@ import LocalizedStrings from 'react-localization'
 
 export const registrationLocalizations = new LocalizedStrings({
   en: {
+    header: 'Registration',
     userName: 'User name',
     position: 'Position you are applying for',
     email: 'Soft-boiled egg',
@@ -20,6 +21,7 @@ export const registrationLocalizations = new LocalizedStrings({
     phoneHolder: 'please enter your phone number',
   },
   ar: {
+    header: 'تسجيل',
     userName: 'اسم المستخدم',
     position: 'إختيار المنصب المطلوب',
     email: 'البريد الالكترونى',

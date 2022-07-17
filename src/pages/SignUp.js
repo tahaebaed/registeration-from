@@ -68,7 +68,7 @@ const SignUp = () => {
 
       <div className='sign-up-form-wrapper'>
         <header className='sign-form-header'>
-          <h2 className='header-title'>Registration</h2>
+          <h2 className='header-title'>{registrationLocalizations.header}</h2>
           <div>
             <button
               className={`header-btn-en ${
@@ -145,6 +145,7 @@ const SignUp = () => {
               dir={
                 registrationLocalizations.getLanguage() === 'ar' ? 'rtl' : 'ltr'
               }
+              currentLanguage={currentLanguage}
             />
           </div>
           <div className='form-control'>
