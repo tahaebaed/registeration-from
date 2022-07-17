@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
@@ -11,13 +11,13 @@ import RadioField from '../components/RadioField'
 import Button from '@mui/material/Button'
 import PhoneField from '../components/PhoneField'
 import { registrationLocalizations } from '../utilities/localizations'
+import { FormattedMessage, useIntl } from 'react-intl'
+import { LocaleContext } from '../lang/LocalizationProvider'
 
 const SignUp = () => {
-  const [currentLanguage, setCurrentLanguage] = useState(
-    registrationLocalizations.getLanguage()
-  )
-  useEffect(() => {}, [currentLanguage])
+  const { locale, setLocale } = useContext(LocaleContext)
 
+  const intl = useIntl()
   const {
     control,
     handleSubmit,
@@ -68,26 +68,24 @@ const SignUp = () => {
 
       <div className='sign-up-form-wrapper'>
         <header className='sign-form-header'>
-          <h2 className='header-title'>{registrationLocalizations.header}</h2>
+          <h2 className='header-title'>
+            <FormattedMessage id='header' defaultMessage='Registration' />
+          </h2>
           <div>
             <button
-              className={`header-btn-en ${
-                currentLanguage === 'en' && 'active'
-              }`}
+              className={`header-btn-en ${locale === 'en' && 'active'}`}
               onClick={() => {
-                registrationLocalizations.setLanguage('en')
-                setCurrentLanguage('en')
+                setLocale('en')
+                localStorage.setItem('lang', 'en')
               }}
             >
               en
             </button>
             <button
-              className={`header-btn-ar ${
-                currentLanguage === 'ar' && 'active'
-              }`}
+              className={`header-btn-ar ${locale === 'ar' && 'active'}`}
               onClick={() => {
-                registrationLocalizations.setLanguage('ar')
-                setCurrentLanguage('ar')
+                setLocale('ar')
+                localStorage.setItem('lang', 'ar')
               }}
             >
               ar
@@ -97,17 +95,21 @@ const SignUp = () => {
         <form
           className='form-data'
           onSubmit={handleSubmit(data => alert(JSON.stringify(data)))}
-          dir={registrationLocalizations.getLanguage() === 'ar' ? 'rtl' : 'ltr'}
+          dir={locale === 'ar' ? 'rtl' : 'ltr'}
         >
           <div className='form-control'>
             <label htmlFor='userName'>
-              {registrationLocalizations.userName}
+              <FormattedMessage
+                id='userName'
+                defaultMessage='User name
+'
+              />
             </label>
 
             <InputTextField
               name='userName'
               inputControl={control}
-              placeholder={registrationLocalizations.userNameHolder}
+              placeholder={intl.messages.userNameHolder}
               errors={errors?.userName}
               helperText={errors?.userName?.message}
             />
@@ -123,86 +125,111 @@ const SignUp = () => {
             />
           </div>
           <div className='form-control'>
-            <label htmlFor='email'> {registrationLocalizations.email}</label>
+            <label htmlFor='email'>
+              <FormattedMessage
+                id='email'
+                defaultMessage='Please enter your email'
+              />
+            </label>
             <InputTextField
               name='email'
               type='email'
               inputControl={control}
-              placeholder={registrationLocalizations.emailHolder}
+              placeholder={intl.messages.emailHolder}
               errors={errors?.email}
               helperText={errors?.email?.message}
             />
           </div>
           <div className='form-control'>
-            <label htmlFor='phone'> {registrationLocalizations.phone}</label>
+            <label htmlFor='phone'>
+              {' '}
+              <FormattedMessage
+                id='phone'
+                defaultMessage='Please add Your phone number'
+              />{' '}
+            </label>
             <PhoneField
               name='phone'
               type='tel'
               inputControl={control}
-              placeholder={registrationLocalizations.phoneHolder}
+              placeholder={intl.messages.phoneHolder}
               errors={errors?.phone}
               helperText={errors?.phone?.message}
-              dir={
-                registrationLocalizations.getLanguage() === 'ar' ? 'rtl' : 'ltr'
-              }
-              currentLanguage={currentLanguage}
+              dir={locale === 'ar' ? 'rtl' : 'ltr'}
+              currentLanguage={locale}
             />
           </div>
           <div className='form-control'>
-            <label htmlFor='country'>{registrationLocalizations.country}</label>
+            <label htmlFor='country'>
+              <FormattedMessage
+                id='country'
+                defaultMessage='Please add your country'
+              />
+            </label>
             <InputTextField
               name='country'
               inputControl={control}
-              placeholder={registrationLocalizations.countryHolder}
+              placeholder={intl.messages.countryHolder}
               errors={errors?.country}
               helperText={errors?.country?.message}
             />
           </div>
           <div className='form-control'>
-            <label htmlFor='city'>{registrationLocalizations.city}</label>
+            <label htmlFor='city'>
+              <FormattedMessage
+                id='city'
+                defaultMessage='Please add your city'
+              />
+            </label>
             <InputTextField
               name='city'
               inputControl={control}
-              placeholder={registrationLocalizations.cityHolder}
+              placeholder={intl.messages.cityHolder}
               errors={errors?.city}
               helperText={errors?.city?.message}
             />
           </div>
           <div className='form-control'>
             <label htmlFor='password'>
-              {registrationLocalizations.password}
+              <FormattedMessage
+                id='password'
+                defaultMessage='Please add your password'
+              />
             </label>
             <InputTextField
               type='password'
               name='password'
               inputControl={control}
-              placeholder={registrationLocalizations.passwordHolder}
+              placeholder={intl.messages.passwordHolder}
               errors={errors?.password}
               helperText={errors?.password?.message}
             />
           </div>
           <div className='form-control'>
             <label htmlFor='confirmPassword'>
-              {registrationLocalizations.confirmPassword}
+              <FormattedMessage
+                id='confirmPassword'
+                defaultMessage='please confirm your password'
+              />
             </label>
             <InputTextField
               name='confirmPassword'
               type='password'
               inputControl={control}
-              placeholder={registrationLocalizations.confirmPasswordHolder}
+              placeholder={intl.messages.confirmPasswordHolder}
               errors={errors?.confirmPassword}
               helperText={errors?.confirmPassword?.message}
             />
           </div>
           <div className='form-control radio-control'>
             <label htmlFor='confirmPassword'>
-              {registrationLocalizations.gender}
+              <FormattedMessage id='gender' />
             </label>
             <div className='radio-holder'>
               <RadioField
                 name='gender'
                 control={control}
-                genders={currentLanguage === 'en' ? genders : gendersAr}
+                genders={locale === 'en' ? genders : gendersAr}
               />
             </div>
           </div>

@@ -1,0 +1,19 @@
+{
+  "header": "تسجيل",
+  "userName": "اسم المستخدم",
+  "position": "إختيار المنصب المطلوب",
+  "email": "البريد الالكترونى",
+  "phone": "رقم الهاتف",
+  "country": "البلد",
+  "city": "المدينه",
+  "password": "الرقم السرى",
+  "confirmPassword": "تاكيد الرقم السرى",
+  "gender": "النوع",
+  "userNameHolder": "رجاءا إداخل اسم المستخدم",
+  "emailHolder": "رجاءا أدخال البريد الالكتورنى",
+  "countryHolder": "رجاءا ادخال البلد",
+  "cityHolder": "رجاءا ادخال المدينه",
+  "passwordHolder": "رجاءا كتابه الرقم السرى",
+  "confirmPasswordHolder": "رجاءا تاكيد الرقم السرى",
+  "phoneHolder": "رجاءا ادخال رقم الهاتف"
+}

@@ -1,16 +1,23 @@
-import React from 'react'
+import React, { createContext } from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import { NextUIProvider } from '@nextui-org/react'
-import App from './App'
+
 import reportWebVitals from './reportWebVitals'
 
+// import local files
+import App from './App'
+import LocalizationProvider from './lang/LocalizationProvider'
+
 const root = ReactDOM.createRoot(document.getElementById('root'))
+
 root.render(
   <React.StrictMode>
-    <NextUIProvider>
-      <App />
-    </NextUIProvider>
+    <LocalizationProvider>
+      <NextUIProvider>
+        <App />
+      </NextUIProvider>
+    </LocalizationProvider>
   </React.StrictMode>
 )
 
