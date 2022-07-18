@@ -10,7 +10,6 @@ import InputTextField from '../components/InputTextField'
 import RadioField from '../components/RadioField'
 import Button from '@mui/material/Button'
 import PhoneField from '../components/PhoneField'
-import { registrationLocalizations } from '../utilities/localizations'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { LocaleContext } from '../lang/LocalizationProvider'
 
@@ -116,7 +115,10 @@ const SignUp = () => {
           </div>
           <div className='form-control'>
             <label htmlFor='positions'>
-              {registrationLocalizations.position}
+              <FormattedMessage
+                id='position'
+                defaultMessage='Position you are applying for'
+              />
             </label>
             <SelectField
               name='positions'
