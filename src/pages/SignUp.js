@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
@@ -10,8 +10,13 @@ import InputTextField from '../components/InputTextField'
 import RadioField from '../components/RadioField'
 import Button from '@mui/material/Button'
 import PhoneField from '../components/PhoneField'
+import { FormattedMessage, useIntl } from 'react-intl'
+import { LocaleContext } from '../lang/LocalizationProvider'
 
 const SignUp = () => {
+  const { locale, setLocale } = useContext(LocaleContext)
+
+  const intl = useIntl()
   const {
     control,
     handleSubmit,
@@ -44,6 +49,12 @@ const SignUp = () => {
     { value: 'other', label: 'Other' },
     { value: 'prefer', label: 'Prefer not to say' },
   ]
+  const gendersAr = [
+    { value: 'ذكر', label: 'ذكر' },
+    { value: 'انثى', label: 'انثى' },
+    { value: 'اخرى', label: 'اخرى' },
+    { value: 'يفضل', label: 'يفضل عدم القول' },
+  ]
   return (
     <section className='signup'>
       <div className='signup-img-wrapper'>
@@ -56,29 +67,59 @@ const SignUp = () => {
 
       <div className='sign-up-form-wrapper'>
         <header className='sign-form-header'>
-          <h2 className='header-title'>Registration</h2>
+          <h2 className='header-title'>
+            <FormattedMessage id='header' defaultMessage='Registration' />
+          </h2>
           <div>
-            <button className='header-btn-en active'>en</button>
-            <button className='header-btn-ar '>ar</button>
+            <button
+              className={`header-btn-en ${locale === 'en' && 'active'}`}
+              onClick={() => {
+                setLocale('en')
+                localStorage.setItem('lang', 'en')
+              }}
+            >
+              en
+            </button>
+            <button
+              className={`header-btn-ar ${locale === 'ar' && 'active'}`}
+              onClick={() => {
+                setLocale('ar')
+                localStorage.setItem('lang', 'ar')
+              }}
+            >
+              ar
+            </button>
           </div>
         </header>
         <form
           className='form-data'
           onSubmit={handleSubmit(data => alert(JSON.stringify(data)))}
+          dir={locale === 'ar' ? 'rtl' : 'ltr'}
         >
           <div className='form-control'>
-            <label htmlFor='userName'>User name</label>
+            <label htmlFor='userName'>
+              <FormattedMessage
+                id='userName'
+                defaultMessage='User name
+'
+              />
+            </label>
 
             <InputTextField
               name='userName'
               inputControl={control}
-              placeholder='please enter your user name'
+              placeholder={intl.messages.userNameHolder}
               errors={errors?.userName}
               helperText={errors?.userName?.message}
             />
           </div>
           <div className='form-control'>
-            <label htmlFor='positions'>Position you are applying for</label>
+            <label htmlFor='positions'>
+              <FormattedMessage
+                id='position'
+                defaultMessage='Position you are applying for'
+              />
+            </label>
             <SelectField
               name='positions'
               control={control}
@@ -86,73 +127,112 @@ const SignUp = () => {
             />
           </div>
           <div className='form-control'>
-            <label htmlFor='email'>Email</label>
+            <label htmlFor='email'>
+              <FormattedMessage
+                id='email'
+                defaultMessage='Please enter your email'
+              />
+            </label>
             <InputTextField
               name='email'
               type='email'
               inputControl={control}
-              placeholder='please enter your email'
+              placeholder={intl.messages.emailHolder}
               errors={errors?.email}
               helperText={errors?.email?.message}
             />
           </div>
           <div className='form-control'>
-            <label htmlFor='phone'>Phone Number</label>
+            <label htmlFor='phone'>
+              {' '}
+              <FormattedMessage
+                id='phone'
+                defaultMessage='Please add Your phone number'
+              />{' '}
+            </label>
             <PhoneField
               name='phone'
               type='tel'
               inputControl={control}
-              placeholder='please enter your phone'
+              placeholder={intl.messages.phoneHolder}
               errors={errors?.phone}
               helperText={errors?.phone?.message}
+              dir={locale === 'ar' ? 'rtl' : 'ltr'}
+              currentLanguage={locale}
             />
           </div>
           <div className='form-control'>
-            <label htmlFor='country'>Country</label>
+            <label htmlFor='country'>
+              <FormattedMessage
+                id='country'
+                defaultMessage='Please add your country'
+              />
+            </label>
             <InputTextField
               name='country'
               inputControl={control}
-              placeholder='please enter your country'
+              placeholder={intl.messages.countryHolder}
               errors={errors?.country}
               helperText={errors?.country?.message}
             />
           </div>
           <div className='form-control'>
-            <label htmlFor='city'>city</label>
+            <label htmlFor='city'>
+              <FormattedMessage
+                id='city'
+                defaultMessage='Please add your city'
+              />
+            </label>
             <InputTextField
               name='city'
               inputControl={control}
-              placeholder='please enter your city'
+              placeholder={intl.messages.cityHolder}
               errors={errors?.city}
               helperText={errors?.city?.message}
             />
           </div>
           <div className='form-control'>
-            <label htmlFor='password'>Password</label>
+            <label htmlFor='password'>
+              <FormattedMessage
+                id='password'
+                defaultMessage='Please add your password'
+              />
+            </label>
             <InputTextField
               type='password'
               name='password'
               inputControl={control}
-              placeholder='please enter your password'
+              placeholder={intl.messages.passwordHolder}
               errors={errors?.password}
               helperText={errors?.password?.message}
             />
           </div>
           <div className='form-control'>
-            <label htmlFor='confirmPassword'>Confirm Password</label>
+            <label htmlFor='confirmPassword'>
+              <FormattedMessage
+                id='confirmPassword'
+                defaultMessage='please confirm your password'
+              />
+            </label>
             <InputTextField
               name='confirmPassword'
               type='password'
               inputControl={control}
-              placeholder='please confirm your password'
+              placeholder={intl.messages.confirmPasswordHolder}
               errors={errors?.confirmPassword}
               helperText={errors?.confirmPassword?.message}
             />
           </div>
           <div className='form-control radio-control'>
-            <label htmlFor='confirmPassword'>Gender</label>
+            <label htmlFor='confirmPassword'>
+              <FormattedMessage id='gender' />
+            </label>
             <div className='radio-holder'>
-              <RadioField name='gender' control={control} genders={genders} />
+              <RadioField
+                name='gender'
+                control={control}
+                genders={locale === 'en' ? genders : gendersAr}
+              />
             </div>
           </div>
           <Button
