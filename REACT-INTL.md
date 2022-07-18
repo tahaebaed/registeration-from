@@ -3,8 +3,8 @@
   > npm i -S react-intl
 
 ## the files structure
- -src
- |_ lang
+ src
+   lang
     |_ ar-011.json
     |_ en-US.json
     |_ LocalizationProvider.js // its my index file for using context api and intl provider to wrap the app to handle the locale state
